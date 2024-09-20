@@ -1,0 +1,66 @@
+<div class="container my-4">
+  <div class="row">
+
+    <div class="col-md-8 mx-auto">
+      <div class="card shadow-lg rounded">
+        <div class="card-header bg-success text-white text-center">
+          <h1><i class="bi bi-person-circle"></i> Registrar producto</h1>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="formValue">
+            <div class="row">
+              <!-- Mensaje de éxito -->
+              <div *ngIf="mensaje_ok" class="col-12">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_ok}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+
+              <!-- Mensaje de error -->
+              <div *ngIf="mensaje_error" class="col-12">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_error}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()"></button>
+                </div>
+              </div>
+
+
+              <div class="col-md-6 mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input id="nombre" type="text" class="form-control" formControlName="name" placeholder="Teclado">
+              </div>
+
+
+              <div class="col-md-6 mb-3">
+                <label for="price" class="form-label">Precio</label>
+                <input id="price" type="number" class="form-control" formControlName="price" placeholder="0">
+              </div>
+
+
+              <div class="col-md-6 mb-3">
+                <label for="quantity" class="form-label">Cantidad</label>
+                <input id="quantity" type="number" class="form-control" formControlName="quantity" placeholder="0">
+              </div>
+
+
+            </div>
+
+            <!-- Botón de envío -->
+            <button type="submit" class="btn btn-primary w-100 my-3" (click)="registrarProducto()">
+              <i class="bi bi-person-plus-fill"></i> Registrar producto
+            </button>
+          </form>
+
+          <!-- Botón para regresar al login -->
+          <div class="text-center mt-3">
+            <a routerLink="/home" class="btn btn-secondary">
+              <i class="bi bi-arrow-left-circle"></i> Volver al Inicio
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
