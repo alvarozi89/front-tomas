@@ -1,9 +1,9 @@
-
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { User } from '../../../shared/models/User';
-import { AuthService } from '../../../core/services/auth.service';
+import { Component } from "@angular/core";
+import { User } from "../../../shared/models/User";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { AuthService } from "../../../core/services/auth.service";
 import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-listar',
   templateUrl: './listar.component.html',
@@ -26,13 +26,15 @@ export class ListarComponent {
     this.loadUsers();
   }
 
+
+
   loadUsers(): void {
-    this.authService.getAllUsers().subscribe(
+   this.authService.getAllUsers().subscribe(
       (data: User[]) => {
         this.users = data;
       },
       error => {
-        console.error('Error loading USERS', error);
+        console.error('Error loading products', error);
       }
     );
   }
@@ -118,5 +120,4 @@ export class ListarComponent {
       );
     }
   }
-
 }

@@ -29,9 +29,20 @@ export class AuthService {
     return !!token; // Retorna true si el token está presente, de lo contrario false
   }
 
-  getAllUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}users/getAll`);
+
+
+  getAllUsers2(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}users/getAll`);
   }
+
+  getAllUsers(){
+    return this.http.get<any>(`${this.apiUrl}users/getAll`)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+
 
 
   searchUsers(query: string): Observable<User[]> {
@@ -56,7 +67,7 @@ export class AuthService {
   }
 
   updateUser(id: number, user: Partial<User>): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}users/user/update/${user.id}`, user);
+    return this.http.put<User>(`${this.apiUrl}users/user/update/${id}`, user);
 
   }
 

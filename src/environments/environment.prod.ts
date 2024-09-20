@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url:'api/users/getAll/api/'
+  url: 'https://back-tomas-production.up.railway.app/api/'
 };

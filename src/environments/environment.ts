@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url:'api/users/getAll/api/'
+  url: 'http://back-tomas-production.up.railway.app/api/'
+  //url: 'http://localhost:8080/api/'
 };
 
 /*

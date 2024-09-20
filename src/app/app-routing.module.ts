@@ -5,6 +5,7 @@ import { UnauthorizedComponent } from './shared/unauthorized/unauthorized.compon
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
+  { path: 'users', loadChildren: () => import('./features/user/user.module').then(m => m.UserModule)},
   { path: 'home', loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule), canActivate: [AuthGuard] },
   { path: 'products', loadChildren: () => import('./features/products/products.module').then(m => m.ProductsModule), canActivate: [AuthGuard] },
    {path : 'orders', loadChildren: () => import('./features/orders/orders.module').then(m => m.OrdersModule), canActivate: [AuthGuard]},

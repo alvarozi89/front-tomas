@@ -9,22 +9,31 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');  // Obtén el token directamente del localStorage
+    let authReq = req;
 
-    console.log('Token:', token);  // Agrega este log para verificar que el token se está obteniendo
+    // Verifica si estamos en el navegador antes de acceder a localStorage
+    if (typeof window !== 'undefined' && localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+      console.log('Token obtenido:', token);
 
-    const authReq = token ? req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
+      if (token) {
+        authReq = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`
+          }
+        });
       }
-    }) : req;
+    }
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error('Error en la solicitud:', error);
+
         if (error.status === 401 || error.status === 403) {
-          // Manejo específico para errores de autenticación
+          console.error('Error de autenticación, redirigir a login u otro manejo');
+          // Aquí podrías redirigir al login si es necesario
         }
+
         return throwError(error);
       })
     );

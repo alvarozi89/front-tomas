@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
-
-import { AuthService } from '../../../core/services/auth.service';
-import { User } from '../../../shared/models/User';
 import { Order } from '../../../shared/models/Order';
 import { OrderService } from '../../../core/services/order.service';
+import { ProductService } from '../../../core/services/product.service';
+import { Product } from '../../../shared/models/Product';
+import { User } from '../../../shared/models/User';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-order-register',
@@ -20,36 +20,63 @@ export class OrderRegisterComponent {
   formValue: FormGroup;
   createForm: FormGroup;
   filtroText: string = '';
+  products : Product[] = [];
+  users: User[] = [];
 
-  constructor(private authService: OrderService, private fb: FormBuilder) {
+  constructor(private authService: AuthService,private orderService: OrderService,private productService: ProductService, private fb: FormBuilder) {
     this.formValue = this.fb.group({
       quantity: [''],
       totalPrice: ['']
     });
 
     this.createForm = this.fb.group({
-      quantity: [''],
-      totalPrice: [''],
+      quantity: ['', Validators.required],
+      totalPrice: ['', Validators.required],
       product: this.fb.group({
-        id: ['']
+        id: ['', Validators.required]
       }),
       user: this.fb.group({
-        id: ['']
+        id: ['', Validators.required]
       })
     });
-  }
 
+  }
   ngOnInit(): void {
     this.loadOrders();
+    this.loadProducts();
+    this.loadUsers();
   }
 
   loadOrders(): void {
-    this.authService.getOrders().subscribe(
+    this.orderService.getOrders().subscribe(
       (data: Order[]) => {
         this.orders = data;
       },
       error => {
         console.error('Error loading orders', error);
+      }
+    );
+  }
+
+  loadProducts(): void {
+    this.productService.getProducts().subscribe(
+      (data: Product[]) => {
+        this.products = data;
+      },
+      error => {
+        console.error('Error loading products', error);
+      }
+    );
+  }
+
+  loadUsers(): void {
+    this.authService.getAllUsers().subscribe(
+      (data: User[]) => {
+        this.users = data;
+      },
+      error => {
+        console.error('Error loading users', error);
+
       }
     );
   }
@@ -61,7 +88,6 @@ export class OrderRegisterComponent {
       this.loadOrders();
     }
   }
-
   getOrderId(order: Order): void {
     this.selectedOrder = order;
   }
@@ -76,7 +102,8 @@ export class OrderRegisterComponent {
 
   createOrder(): void {
     const newOrder: Order = this.createForm.value;
-    this.authService.createOrder(newOrder).subscribe(
+    console.log(newOrder);
+    this.orderService.createOrder(newOrder).subscribe(
       (order: Order) => {
         this.loadOrders();
         this.createForm.reset();
