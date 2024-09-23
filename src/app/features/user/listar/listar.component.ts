@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { User } from "../../../shared/models/User";
+import { User, UserUpdateDTO } from "../../../shared/models/User";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { AuthService } from "../../../core/services/auth.service";
 import Swal from 'sweetalert2'
@@ -96,9 +96,12 @@ export class ListarComponent {
 
   updateUser(): void {
     if (this.selectedUser) {
-      const updatedUser: Partial<User> = { ...this.selectedUser, ...this.formValue.value };
+      const updatedUser: UserUpdateDTO = {
+        nombre: this.formValue.get('nombre')?.value || '',
+        username: this.formValue.get('username')?.value || ''
+      };
       this.authService.updateUser(this.selectedUser.id, updatedUser).subscribe(
-        (response: User) => {
+        (response: UserUpdateDTO) => {
           this.loadUsers();
           this.selectedUser = null;
           Swal.fire({

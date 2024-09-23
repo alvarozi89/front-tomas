@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2'
-import { Order } from '../../../shared/models/Order';
+import { Order, OrderDto } from '../../../shared/models/Order';
 import { OrderService } from '../../../core/services/order.service';
 import { ProductService } from '../../../core/services/product.service';
 import { Product } from '../../../shared/models/Product';
@@ -15,6 +15,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class OrderRegisterComponent {
 
+  ordersDto: OrderDto[] = [];
   orders: Order[] = [];
   selectedOrder: Order | null = null;
   formValue: FormGroup;
@@ -32,12 +33,9 @@ export class OrderRegisterComponent {
     this.createForm = this.fb.group({
       quantity: ['', Validators.required],
       totalPrice: ['', Validators.required],
-      product: this.fb.group({
-        id: ['', Validators.required]
-      }),
-      user: this.fb.group({
-        id: ['', Validators.required]
-      })
+      productId: ['', Validators.required],
+      userId: ['', Validators.required],
+
     });
 
   }
@@ -101,10 +99,10 @@ export class OrderRegisterComponent {
 
 
   createOrder(): void {
-    const newOrder: Order = this.createForm.value;
+    const newOrder: OrderDto = this.createForm.value;
     console.log(newOrder);
     this.orderService.createOrder(newOrder).subscribe(
-      (order: Order) => {
+      (order: OrderDto) => {
         this.loadOrders();
         this.createForm.reset();
         Swal.fire({

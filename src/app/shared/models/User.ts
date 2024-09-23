@@ -8,3 +8,8 @@ export class User {
   role: { id: number } = { id: 0 };
   orders: Order[] = [];
 }
+
+export class UserUpdateDTO {
+  nombre: string = '';
+  username: string = '';
+}

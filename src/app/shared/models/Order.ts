@@ -8,3 +8,11 @@ export class Order {
   quantity: number = 0;
   totalPrice: number = 0.0;
 }
+
+export class OrderDto {
+  id: number = 0;
+  userId: number | null = null; // ID del usuario, inicializado como null
+  productId: number | null = null; // ID del producto, inicializado como null
+  quantity: number = 0;
+  totalPrice: number = 0.0;
+}

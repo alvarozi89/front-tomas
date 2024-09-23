@@ -27,14 +27,14 @@
 
                   <div class="col-md-4">
                     <label>ID del Producto</label>
-                    <select class="form-control" formControlName="product.id">
+                    <select class="form-control" formControlName="productId">
                       <option *ngFor="let product of products" [ngValue]="product.id">{{ product.name }}</option>
                     </select>
                   </div>
 
                   <div class="col-md-4 mt-2">
                     <label>ID del Usuario</label>
-                  <select class="form-control" formControlName="user.id">
+                  <select class="form-control" formControlName="userId">
                     <option *ngFor="let user of users" [ngValue]="user.id">{{ user.nombre }}</option>
                   </select>
                   </div>

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.prod';
-import { User } from '../../shared/models/User';
+import { User, UserUpdateDTO } from '../../shared/models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -66,8 +66,8 @@ export class AuthService {
     return this.http.delete(`${this.apiUrl}users/user/delete/${id}`);
   }
 
-  updateUser(id: number, user: Partial<User>): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}users/user/update/${id}`, user);
+  updateUser(id: number, user: Partial<UserUpdateDTO>): Observable<UserUpdateDTO> {
+    return this.http.put<UserUpdateDTO>(`${this.apiUrl}users/user/update/${id}`, user);
 
   }
 

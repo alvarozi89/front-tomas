@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Order } from '../../shared/models/Order';
+import { Order, OrderDto } from '../../shared/models/Order';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,8 +13,8 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  createOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(`${this.apiUrl}orders/create`, order);
+  createOrder(order: OrderDto): Observable<OrderDto> {
+    return this.http.post<OrderDto>(`${this.apiUrl}orders/create`, order);
   }
   getOrdersTop(): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.apiUrl}orders/top-customers`);
