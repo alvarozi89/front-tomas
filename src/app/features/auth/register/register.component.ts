@@ -41,13 +41,14 @@ export class RegisterComponent implements OnInit {
     this.usuarioModel.password = this.formValue.value.password;
 
     // El campo role necesita un objeto con el ID del rol
-    this.usuarioModel.role = { id: this.formValue.value.role };
+    this.usuarioModel.role =  this.formValue.value.role ;
 
     // Validación simple para el campo nombre
     if (this.usuarioModel.nombre === "") {
       this.mensaje_error = "El campo nombre no puede estar vacío";
     } else {
       // Cuando la información esté lista, llama al servicio para crear el usuario
+      console.log(this.usuarioModel);
       this.authService.register(this.usuarioModel)
         .subscribe({
           next: (res) => {
