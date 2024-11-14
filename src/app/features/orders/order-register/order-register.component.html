@@ -1,0 +1,98 @@
+<div class="container my-4">
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <div class="card bg-light shadow-sm">
+
+        <div class="card-header bg-primary text-center text-white">
+          <h1><i class="bi bi-box"></i> Mis Órdenes</h1>
+        </div>
+
+        <div class="card-body">
+          <div *ngIf="discountEnabled" class="alert alert-info">
+            ¡Descuento del 10% activo! Tiempo restante: {{ remainingTime }} segundos
+          </div>
+
+          <!-- Formulario para crear una nueva orden -->
+          <div class="row my-2">
+            <div class="col-lg-12">
+              <h5 class="card-title">Crear Orden</h5>
+              <form [formGroup]="createForm" (ngSubmit)="createOrder()">
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <label>ID del Producto</label>
+                    <select class="form-control" formControlName="productId">
+                      <option *ngFor="let product of products" [ngValue]="product.id">{{ product.name }}</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label>Cantidad</label>
+                    <input type="number" class="form-control" formControlName="quantity">
+                  </div>
+
+                  <div class="col-md-4">
+                    <label>Descuento (%)</label>
+                    <input type="number" class="form-control" formControlName="discount" readonly>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label>Precio Total</label>
+                    <input type="number" class="form-control" formControlName="totalPrice">
+                  </div>
+
+                  <div class="col-md-4">
+                    <label>ID del Usuario</label>
+                    <select class="form-control" formControlName="userId" (change)="onUserChange()">
+                      <option *ngFor="let user of usersTop" [ngValue]="user.id">{{ user.nombre }}</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4" *ngIf="createForm.get('discountUser')?.value > 0">
+                    <label>Descuento Usuario Frecuente (%)</label>
+                    <input type="number" class="form-control" formControlName="discountUser" readonly>
+                  </div>
+                </div>
+                 <!-- Pedido Aleatorio (botón) -->
+                <div class="col-md-4 mt-2">
+                  <button type="button" class="btn btn-secondary" (click)="activateRandomOrder()">Pedido Aleatorio</button>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Crear Orden</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Tabla de órdenes -->
+          <div class="table-responsive-sm">
+            <table class="table table-striped table-bordered">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Id orden</th>
+                  <th scope="col">CantidadD</th>
+                  <th scope="col">Precio Total</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let order of orders; let index = index">
+                <tr>
+                  <td>{{index + 1}}</td>
+                  <td>{{order.id}}</td>
+                  <td>{{order.quantity}}</td>
+                  <td>{{order.totalPrice | currency}}</td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card-footer text-center">
+          <button class="btn btn-secondary" routerLink="/home">
+            <i class="bi bi-house-door"></i> Regresar a Inicio
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

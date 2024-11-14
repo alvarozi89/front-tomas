@@ -1,0 +1,74 @@
+<div class="container my-4">
+  <div class="row">
+
+    <div class="col-md-8 mx-auto">
+      <div class="card shadow-lg rounded">
+        <div class="card-header bg-primary text-white text-center">
+          <h1><i class="bi bi-person-circle"></i> Registrar Usuario</h1>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="formValue">
+            <div class="row">
+              <!-- Mensaje de éxito -->
+              <div *ngIf="mensaje_ok" class="col-12">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_ok}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+
+              <!-- Mensaje de error -->
+              <div *ngIf="mensaje_error" class="col-12">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_error}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()"></button>
+                </div>
+              </div>
+
+              <!-- Campo Nombre -->
+              <div class="col-md-6 mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input id="nombre" type="text" class="form-control" formControlName="nombre" placeholder="Juan Pérez">
+              </div>
+
+              <!-- Campo Username -->
+              <div class="col-md-6 mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input id="username" type="text" class="form-control" formControlName="username" placeholder="juanperez123">
+              </div>
+
+              <!-- Campo Password -->
+              <div class="col-md-6 mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" type="password" class="form-control" formControlName="password" placeholder="********">
+              </div>
+
+              <!-- Campo Role (ID del rol) -->
+              <div class="col-md-6 mb-3">
+                <label for="role" class="form-label">Rol</label>
+                <select id="role" class="form-control" formControlName="role">
+                  <option [ngValue]="1">Admin</option>
+                  <option [ngValue]="2">User</option>
+                  <!-- Agrega más roles según sea necesario -->
+                </select>
+              </div>
+            </div>
+
+            <!-- Botón de envío -->
+            <button type="submit" class="btn btn-primary w-100 my-3" (click)="registrarUsuario()">
+              <i class="bi bi-person-plus-fill"></i> Registrar usuario
+            </button>
+          </form>
+
+          <!-- Botón para regresar al login -->
+          <div class="text-center mt-3">
+            <a routerLink="/login" class="btn btn-secondary">
+              <i class="bi bi-arrow-left-circle"></i> Volver al Login
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

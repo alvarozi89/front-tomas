@@ -1,0 +1,70 @@
+<section class="vh-100" style="background-color: #9A616D;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                  <div *ngIf="mensaje_ok">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong>{{mensaje_ok}}</strong>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  </div>
+
+                  <div *ngIf="mensaje_error">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>{{mensaje_error}}</strong>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                        (click)="cerrarAlerta()"></button>
+                    </div>
+                  </div>
+
+                  <div class="text-center mb-3 pb-1">
+                    <span class="h1 fw-bold mb-0"><i class="bi bi-person-heart"></i> TPS APP</span>
+                  </div>
+
+                  <h5 class="fw-normal mb-1 pb-1" style="letter-spacing: 1px;">Por favor inicia sesión</h5>
+
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="username">
+                    <label for="floatingInput">Usuario</label>
+                  </div>
+
+                  <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
+                    <label for="floatingPassword">Contraseña</label>
+                  </div>
+
+                  <div class="d-grid pt-1 mb-4">
+                    <button class="btn btn-dark btn-lg btn-block" type="submit">
+                      <i class="bi bi-door-open"></i> Iniciar sesión
+                    </button>
+                  </div>
+
+                  <div class="d-grid pt-1 mb-4">
+                    <button class="btn btn-success btn-lg btn-block" type="button" routerLink="/register">
+                      <i class="bi bi-emoji-heart-eyes"></i> Registrarse
+                    </button>
+                  </div>
+
+                  <a href="#!" class="small text-muted">Términos de uso.</a>
+                  <a href="#!" class="small text-muted">Política de privacidad 2024 alv</a>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

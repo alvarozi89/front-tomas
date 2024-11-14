@@ -1,0 +1,108 @@
+<div class="container my-4"></div>
+<div class="row">
+  <div class="col-md-10 mx-auto">
+    <div class="card bg-light shadow-sm">
+
+      <div class="card-header bg-primary text-center text-white">
+        <h1><i class="bi bi-box"></i> Mis Usuarios  top 5</h1>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+        </div>
+        <div class="table-responsive-sm">
+          <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Username</th>
+                <th scope="col">Órdenes</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users; let index = index">
+                <td>{{ index + 1 }}</td>
+                <td>{{ user.nombre || 'No disponible' }}</td>
+                <td>{{ user.username || 'No disponible' }}</td>
+                <td>
+                  <ul *ngIf="user.orders.length > 0; else noOrders">
+                    <li *ngFor="let order of user.orders">
+                      Pedido ID: {{ order.id }}, Cantidad: {{ order.quantity }}, Precio Total: {{ order.totalPrice || 'No disponible' }}
+                    </li>
+                  </ul>
+                  <ng-template #noOrders>No tiene órdenes</ng-template>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-outline-danger me-2 my-2" data-bs-toggle="modal" data-bs-target="#modalDelete" (click)="selectUser(user)">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                  <button type="button" class="btn btn-outline-info me-2 my-2" data-bs-toggle="modal" data-bs-target="#modalUpdate" (click)="editUser(user)">
+                    <i class="bi bi-wrench-adjustable"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card-footer text-center">
+        <button class="btn btn-secondary" routerLink="/home">
+          <i class="bi bi-house-door"></i> Regresar a Inicio
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal delete -->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDeleteLabel">Eliminar usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h1>¿Realmente desea eliminar el usuario?</h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUser()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal update -->
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="modalUpdateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalUpdateLabel">Actualizar usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Nombre</label>
+              <input type="text" class="form-control" formControlName="nombre">
+            </div>
+            <div class="col-md-6">
+              <label>Username</label>
+              <input type="text" class="form-control" formControlName="username">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="updateUser()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
