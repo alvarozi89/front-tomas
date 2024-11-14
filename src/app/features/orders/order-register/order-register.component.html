@@ -44,7 +44,7 @@
                   <div class="col-md-4">
                     <label>ID del Usuario</label>
                     <select class="form-control" formControlName="userId" (change)="onUserChange()">
-                      <option *ngFor="let user of usersTop" [ngValue]="user.id">{{ user.nombre }}</option>
+                      <option *ngFor="let user of users" [ngValue]="user.id">{{ user.nombre }}</option>
                     </select>
                   </div>
 
